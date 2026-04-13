@@ -1,280 +1,298 @@
-<!-- ================================================================ -->
-<!-- QTOV — Quizz TeleRehab de Orientação Vertiginosa                 -->
-<!-- Versão SQUARESPACE-READY para colar num Code Block               -->
-<!-- Tudo com namespace #qtov-app para não colidir com CSS do tema    -->
-<!-- Projecto TeleRehab DSS · DIGIT-Madeira / UNINOVA · 2026          -->
-<!-- ================================================================ -->
 
-<div id="qtov-app">
-  <div class="qtov-container">
-    <header class="qtov-header">
-      <div class="qtov-marcas">DIGIT-MADEIRA · UNINOVA · TeleRehaB DSS</div>
-      <h1 class="qtov-h1">QTOV — Questionário TeleRehab de Orientação Vertiginosa</h1>
-      <div class="qtov-sub">Versão não validada · Uso educativo · Não substitui avaliação médica</div>
-    </header>
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Triagem orientativa de síndrome vertiginoso — Projecto TeleRehab DSS / DIGIT-Madeira. Ferramenta educativa, não substitui avaliação médica.">
+<meta name="robots" content="index, follow">
+<title>QTOV — Questionário TeleRehab de Orientação Vertiginosa | TeleRehab DSS</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --verde:#2e8b57;--amarelo:#e8a92b;--laranja:#e8681a;--vermelho:#c62828;
+  --azul:#0b5a8a;--azul-claro:#e8f1f8;--cinza:#3a3a3a;--fundo:#f5f7fa;--branco:#fff;
+}
+html{font-size:22px}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:var(--fundo);color:var(--cinza);line-height:1.65;min-height:100vh;padding:1rem}
+.container{max-width:760px;margin:0 auto;background:var(--branco);border-radius:12px;
+  box-shadow:0 4px 20px rgba(0,0,0,.08);overflow:hidden}
+header{background:linear-gradient(135deg,var(--azul) 0%,#1a7bb5 100%);color:#fff;padding:1.75rem 1.5rem;text-align:center}
+header .marcas{font-size:.95rem;opacity:.95;margin-bottom:.6rem;letter-spacing:.5px;font-weight:600}
+header h1{font-size:1.65rem;margin-bottom:.4rem;line-height:1.25;font-weight:700}
+header .subt{font-size:1.05rem;opacity:.95}
+main{padding:1.75rem 1.5rem}
+.intro{background:var(--azul-claro);border-left:5px solid var(--azul);padding:1.25rem;border-radius:6px;margin-bottom:1.25rem;font-size:1.1rem;line-height:1.6}
+.intro strong{color:var(--azul)}
+.aviso{background:#fff8e1;border:2px solid #f0c674;border-radius:6px;padding:1.25rem;font-size:1.05rem;margin-bottom:1.75rem;line-height:1.6}
+.aviso strong{color:#8a6a00}
+.pergunta{margin-bottom:1.5rem;padding:1.25rem;background:#fafbfc;border-radius:10px;border:2px solid #e4e8ec}
+.pergunta.redflag{border-color:#f5a8a8;background:#fff5f5}
+.pergunta h3{font-size:1.25rem;color:var(--azul);margin-bottom:.75rem;line-height:1.4;font-weight:700}
+.pergunta .explic{font-size:1rem;color:#5a5a5a;margin-bottom:1rem;font-style:italic;line-height:1.5}
+.opcoes{display:flex;flex-direction:column;gap:.75rem}
+.opcao{display:flex;align-items:center;padding:1.1rem 1.25rem;background:#fff;border:2px solid #cfd6df;
+  border-radius:10px;cursor:pointer;font-size:1.15rem;transition:all .15s;min-height:66px;line-height:1.4}
+.opcao:hover{border-color:var(--azul);background:var(--azul-claro)}
+.opcao input{margin-right:1rem;transform:scale(1.6);cursor:pointer;flex-shrink:0}
+.opcao.checked{border-color:var(--azul);background:var(--azul-claro);font-weight:600}
+.btn{display:block;width:100%;padding:1.25rem;background:var(--azul);color:#fff;border:0;
+  border-radius:10px;font-size:1.25rem;font-weight:700;cursor:pointer;margin-top:1.25rem;transition:background .15s;min-height:64px}
+.btn:hover{background:#094870}
+.btn:disabled{background:#bbb;cursor:not-allowed}
+.resultado{display:none;padding:1.75rem 1.5rem;text-align:center}
+.resultado.ativo{display:block}
+.semaforo{padding:2.25rem 1.5rem;border-radius:14px;color:#fff;margin-bottom:1.75rem}
+.semaforo.verde{background:var(--verde)}
+.semaforo.amarelo{background:var(--amarelo)}
+.semaforo.laranja{background:var(--laranja)}
+.semaforo.vermelho{background:var(--vermelho);animation:pulsa 1.5s ease-in-out infinite}
+@keyframes pulsa{0%,100%{box-shadow:0 0 0 0 rgba(198,40,40,.5)}50%{box-shadow:0 0 0 15px rgba(198,40,40,0)}}
+.semaforo .icone{font-size:4rem;margin-bottom:.6rem}
+.semaforo .nivel{font-size:1.5rem;font-weight:800;margin-bottom:.6rem;text-transform:uppercase;letter-spacing:1px}
+.semaforo .pontos{font-size:3rem;font-weight:800;margin-bottom:.3rem;line-height:1.1}
+.semaforo .pontos small{font-size:1.15rem;font-weight:500;opacity:.9}
+.orient{background:#fafbfc;border-radius:10px;padding:1.5rem;text-align:left;margin-bottom:1.25rem;font-size:1.1rem;line-height:1.6}
+.orient h3{color:var(--azul);margin-bottom:.75rem;font-size:1.3rem;font-weight:700}
+.orient p{margin-bottom:.75rem}
+.orient ul{padding-left:1.5rem;margin-top:.5rem}
+.orient li{margin-bottom:.6rem}
+.contactos{background:var(--azul-claro);border-radius:10px;padding:1.25rem;text-align:left;font-size:1.1rem;margin-bottom:1.25rem;line-height:1.7}
+.contactos strong{color:var(--azul);display:block;margin-bottom:.5rem;font-size:1.2rem}
+.contactos a{color:var(--azul);text-decoration:none;font-weight:700}
+.contactos a:hover{text-decoration:underline}
+.btn-reset{background:#6a6a6a;margin-top:.75rem}
+.btn-reset:hover{background:#4a4a4a}
+footer{padding:1.5rem;background:#f0f2f5;font-size:.9rem;color:#5a5a5a;text-align:center;line-height:1.6}
+footer .legal{background:#fff3cd;border:1px solid #ffe08a;border-radius:6px;padding:1rem;margin-bottom:.75rem;color:#5a4a00;font-size:.9rem;text-align:left}
+footer .grant{opacity:.85;margin-top:.5rem}
+@media(max-width:600px){
+  html{font-size:20px}
+  body{padding:.5rem}
+  header{padding:1.5rem 1.25rem}
+  header h1{font-size:1.4rem}
+  header .subt{font-size:.95rem}
+  main{padding:1.25rem 1rem}
+  .pergunta{padding:1rem}
+  .pergunta h3{font-size:1.15rem}
+  .opcao{padding:1rem;font-size:1.1rem;min-height:62px}
+  .semaforo .pontos{font-size:2.5rem}
+  .semaforo .nivel{font-size:1.3rem}
+  .orient{padding:1.25rem;font-size:1.05rem}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="marcas">DIGIT-MADEIRA · UNINOVA · TeleRehaB DSS</div>
+    <h1>QTOV — Questionário TeleRehab de Orientação Vertiginosa</h1>
+    <div class="subt">Versão não validada · Uso educativo · Não substitui avaliação médica</div>
+  </header>
 
-    <main class="qtov-main">
-      <div id="qtov-quizz">
-        <div class="qtov-intro">
-          <strong>Para si, que nunca teve diagnóstico de síndrome vestibular:</strong> este questionário rápido ajuda-o a perceber se os seus sintomas de tontura ou desequilíbrio podem beneficiar de acompanhamento clínico. Desenvolvido no âmbito do projecto <strong>TeleRehab DSS</strong> (Horizon Europe Grant Nº 101057747) em parceria com <strong>DIGIT-Madeira / UNINOVA</strong>. <strong>Não é um diagnóstico</strong> — é uma ferramenta educativa de orientação.
-        </div>
-        <div class="qtov-aviso">
-          <strong>🔒 Protecção de dados (RGPD):</strong> este questionário funciona <strong>inteiramente no seu dispositivo</strong>. As suas respostas <strong>não são gravadas, não são enviadas e não são partilhadas</strong>. Nenhum dado sai do seu telemóvel ou computador. Quando fechar a página, tudo desaparece.
-        </div>
-        <form id="qtov-form"></form>
-        <button type="button" class="qtov-btn" id="qtov-btnCalcular">Ver resultado orientativo</button>
+  <main id="app">
+    <div id="quizz">
+      <div class="intro">
+        <strong>Para si, que nunca teve diagnóstico de síndrome vestibular:</strong> este questionário rápido ajuda-o a perceber se os seus sintomas de tontura ou desequilíbrio podem beneficiar de acompanhamento clínico. Desenvolvido no âmbito do projecto <strong>TeleRehab DSS</strong> (Horizon Europe Grant Nº 101057747) em parceria com <strong>DIGIT-Madeira / UNINOVA</strong>. <strong>Não é um diagnóstico</strong> — é uma ferramenta educativa de orientação.
       </div>
-
-      <div class="qtov-resultado" id="qtov-resultado">
-        <div class="qtov-semaforo" id="qtov-semaforo">
-          <div class="qtov-icone" id="qtov-icone">🟢</div>
-          <div class="qtov-nivel" id="qtov-nivel">—</div>
-          <div class="qtov-pontos"><span id="qtov-pontos">0</span><small> / 100</small></div>
-          <div>Pontuação de Suspeita Clínica</div>
-        </div>
-        <div class="qtov-orient" id="qtov-orient"></div>
-        <div class="qtov-contactos">
-          <strong>📞 Contactos úteis</strong>
-          SNS 24: <a href="tel:808242424">808 24 24 24</a><br>
-          Emergência: <a href="tel:112">112</a><br>
-          DIGIT-Madeira: <a href="mailto:info@digit-madeira.pt">info@digit-madeira.pt</a><br>
-          Projecto: <a href="https://telerehab-project.eu" target="_blank" rel="noopener">telerehab-project.eu</a>
-        </div>
-        <button type="button" class="qtov-btn qtov-btn-reset" id="qtov-btnReset">Refazer triagem</button>
+      <div class="aviso">
+        <strong>🔒 Protecção de dados (RGPD):</strong> este questionário funciona <strong>inteiramente no seu dispositivo</strong>. As suas respostas <strong>não são gravadas, não são enviadas e não são partilhadas</strong> com ninguém. Nenhum dado sai do seu telemóvel ou computador. Quando fechar a página, tudo desaparece.
       </div>
-    </main>
+      <form id="form"></form>
+      <button type="button" class="btn" id="btnCalcular">Ver resultado orientativo</button>
+    </div>
 
-    <footer class="qtov-footer">
-      <div class="qtov-legal">
-        <strong>Aviso legal:</strong> Ferramenta educativa de orientação. <strong>Não é um dispositivo médico</strong> ao abrigo do Regulamento (UE) 2017/745 (MDR). Não efectua diagnóstico, não prescreve terapêutica nem substitui consulta médica. Em caso de dúvida ou agravamento procure sempre o seu médico assistente.
+    <div class="resultado" id="resultado">
+      <div class="semaforo" id="semaforo">
+        <div class="icone" id="icone">🟢</div>
+        <div class="nivel" id="nivel">—</div>
+        <div class="pontos"><span id="pontos">0</span><small> / 100</small></div>
+        <div id="label">Pontuação de Suspeita Clínica</div>
       </div>
-      Projecto TeleRehab DSS · Horizon Europe Grant Nº 101057747<br>
-      <span class="qtov-grant">DIGIT-Madeira / UNINOVA © 2026</span>
-    </footer>
-  </div>
+      <div class="orient" id="orient"></div>
+      <div class="contactos">
+        <strong>📞 Contactos úteis</strong>
+        SNS 24: <a href="tel:808242424">808 24 24 24</a><br>
+        Emergência: <a href="tel:112">112</a><br>
+        DIGIT-Madeira: <a href="mailto:info@digit-madeira.pt">info@digit-madeira.pt</a><br>
+        Projecto: <a href="https://telerehab-project.eu" target="_blank" rel="noopener">telerehab-project.eu</a>
+      </div>
+      <button type="button" class="btn btn-reset" id="btnReset">Refazer triagem</button>
+    </div>
+  </main>
+
+  <footer>
+    <div class="legal">
+      <strong>Aviso legal:</strong> Ferramenta educativa de orientação. <strong>Não é um dispositivo médico</strong> ao abrigo do Regulamento (UE) 2017/745 (MDR). Não efectua diagnóstico, não prescreve terapêutica nem substitui consulta médica. Em caso de dúvida ou agravamento procure sempre o seu médico assistente.
+    </div>
+    Projecto TeleRehab DSS · Horizon Europe Grant Nº 101057747<br>
+    <div class="grant">DIGIT-Madeira / UNINOVA © 2026</div>
+  </footer>
 </div>
 
-<style>
-/* =============== NAMESPACE #qtov-app =============== */
-/* Reset defensivo — impede que o tema Squarespace interfira */
-#qtov-app,#qtov-app *,#qtov-app *::before,#qtov-app *::after{
-  box-sizing:border-box!important;margin:0;padding:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif!important;
-}
-#qtov-app{
-  --qtov-verde:#2e8b57;--qtov-amarelo:#e8a92b;--qtov-vermelho:#c62828;
-  --qtov-azul:#0b5a8a;--qtov-azul-claro:#e8f1f8;--qtov-cinza:#4a4a4a;
-  --qtov-branco:#fff;--qtov-fundo:#f5f7fa;
-  color:var(--qtov-cinza);line-height:1.6;font-size:18px;padding:1rem 0;
-}
-#qtov-app .qtov-container{max-width:720px;margin:0 auto;background:var(--qtov-branco);
-  border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.08);overflow:hidden}
-#qtov-app .qtov-header{background:linear-gradient(135deg,#0b5a8a 0%,#1a7bb5 100%);
-  color:#fff!important;padding:1.5rem;text-align:center}
-#qtov-app .qtov-marcas{font-size:.85rem;opacity:.9;margin-bottom:.5rem;letter-spacing:.5px;color:#fff!important}
-#qtov-app .qtov-h1{font-size:1.4rem;margin-bottom:.3rem;line-height:1.3;color:#fff!important;font-weight:700}
-#qtov-app .qtov-sub{font-size:.9rem;opacity:.95;color:#fff!important}
-#qtov-app .qtov-main{padding:1.5rem;background:var(--qtov-branco)}
-#qtov-app .qtov-intro{background:var(--qtov-azul-claro);border-left:4px solid var(--qtov-azul);
-  padding:1rem;border-radius:6px;margin-bottom:1rem;font-size:1rem;color:var(--qtov-cinza)}
-#qtov-app .qtov-intro strong{color:var(--qtov-azul)}
-#qtov-app .qtov-aviso{background:#fff8e1;border:1px solid #f0c674;border-radius:6px;
-  padding:1rem;font-size:.95rem;margin-bottom:1.5rem;color:var(--qtov-cinza)}
-#qtov-app .qtov-aviso strong{color:#8a6a00}
-#qtov-app .qtov-pergunta{margin-bottom:1.25rem;padding:1rem;background:#fafbfc;
-  border-radius:8px;border:1px solid #e4e8ec}
-#qtov-app .qtov-pergunta.qtov-redflag{border-color:#f5a8a8;background:#fff5f5}
-#qtov-app .qtov-pergunta h3{font-size:1.05rem;color:var(--qtov-azul);margin-bottom:.75rem;
-  line-height:1.4;font-weight:600}
-#qtov-app .qtov-explic{font-size:.88rem;color:#6a6a6a;margin-bottom:.75rem;font-style:italic}
-#qtov-app .qtov-opcoes{display:flex;flex-direction:column;gap:.6rem}
-#qtov-app .qtov-opcao{display:flex!important;align-items:center;padding:.85rem 1rem;
-  background:#fff;border:2px solid #dfe4ea;border-radius:8px;cursor:pointer;
-  font-size:1rem;min-height:54px;color:var(--qtov-cinza);transition:all .15s}
-#qtov-app .qtov-opcao:hover{border-color:var(--qtov-azul);background:var(--qtov-azul-claro)}
-#qtov-app .qtov-opcao input{margin-right:.75rem;transform:scale(1.3);cursor:pointer;flex-shrink:0}
-#qtov-app .qtov-opcao.qtov-checked{border-color:var(--qtov-azul);
-  background:var(--qtov-azul-claro);font-weight:600}
-#qtov-app .qtov-btn{display:block!important;width:100%;padding:1rem;
-  background:var(--qtov-azul)!important;color:#fff!important;border:0!important;
-  border-radius:8px!important;font-size:1.1rem!important;font-weight:600!important;
-  cursor:pointer;margin-top:1rem;text-transform:none!important;letter-spacing:normal!important}
-#qtov-app .qtov-btn:hover{background:#094870!important}
-#qtov-app .qtov-btn-reset{background:#6a6a6a!important;margin-top:.5rem}
-#qtov-app .qtov-btn-reset:hover{background:#4a4a4a!important}
-#qtov-app .qtov-resultado{display:none;padding:1.5rem;text-align:center}
-#qtov-app .qtov-resultado.qtov-ativo{display:block}
-#qtov-app .qtov-semaforo{padding:2rem 1.5rem;border-radius:12px;color:#fff!important;margin-bottom:1.5rem}
-#qtov-app .qtov-semaforo.qtov-verde{background:var(--qtov-verde)}
-#qtov-app .qtov-semaforo.qtov-amarelo{background:var(--qtov-amarelo)}
-#qtov-app .qtov-semaforo.qtov-vermelho{background:var(--qtov-vermelho);
-  animation:qtov-pulsa 1.5s ease-in-out infinite}
-@keyframes qtov-pulsa{0%,100%{box-shadow:0 0 0 0 rgba(198,40,40,.5)}
-  50%{box-shadow:0 0 0 15px rgba(198,40,40,0)}}
-#qtov-app .qtov-icone{font-size:3.5rem;margin-bottom:.5rem;color:#fff!important}
-#qtov-app .qtov-nivel{font-size:1.3rem;font-weight:700;margin-bottom:.5rem;
-  text-transform:uppercase;letter-spacing:1px;color:#fff!important}
-#qtov-app .qtov-pontos{font-size:2.5rem;font-weight:800;margin-bottom:.3rem;color:#fff!important}
-#qtov-app .qtov-pontos small{font-size:1rem;font-weight:400;opacity:.9}
-#qtov-app .qtov-orient{background:#fafbfc;border-radius:8px;padding:1.25rem;
-  text-align:left;margin-bottom:1rem;color:var(--qtov-cinza)}
-#qtov-app .qtov-orient h3{color:var(--qtov-azul);margin-bottom:.6rem;font-size:1.1rem;font-weight:700}
-#qtov-app .qtov-orient ul{padding-left:1.3rem;margin-top:.4rem;list-style:disc}
-#qtov-app .qtov-orient li{margin-bottom:.4rem}
-#qtov-app .qtov-contactos{background:var(--qtov-azul-claro);border-radius:8px;
-  padding:1rem;text-align:left;font-size:.95rem;margin-bottom:1rem;color:var(--qtov-cinza)}
-#qtov-app .qtov-contactos strong{color:var(--qtov-azul);display:block;margin-bottom:.3rem}
-#qtov-app .qtov-contactos a{color:var(--qtov-azul)!important;text-decoration:none;font-weight:600}
-#qtov-app .qtov-contactos a:hover{text-decoration:underline}
-#qtov-app .qtov-footer{padding:1.25rem 1.5rem;background:#f0f2f5;font-size:.8rem;
-  color:#6a6a6a;text-align:center;line-height:1.5}
-#qtov-app .qtov-legal{background:#fff3cd;border:1px solid #ffe08a;border-radius:6px;
-  padding:.75rem;margin-bottom:.75rem;color:#5a4a00;font-size:.8rem}
-#qtov-app .qtov-grant{opacity:.8}
-@media(max-width:480px){#qtov-app{font-size:17px}
-  #qtov-app .qtov-h1{font-size:1.2rem}
-  #qtov-app .qtov-pontos{font-size:2rem}
-  #qtov-app .qtov-main{padding:1rem}}
-</style>
-
 <script>
-(function(){
-  function qtovInit(){
-    if(document.getElementById('qtov-form').dataset.inited) return;
-    document.getElementById('qtov-form').dataset.inited = '1';
+// Red flags: qualquer SIM → urgência (score forçado a 100)
+const redFlags = [
+  {id:'rf1', q:'Sente, agora ou nas últimas horas, <strong>dor de cabeça súbita e muito intensa</strong> (a pior da sua vida)?'},
+  {id:'rf2', q:'Tem <strong>perda súbita de visão</strong>, visão dupla ou dificuldade a falar/compreender?'},
+  {id:'rf3', q:'Tem <strong>fraqueza ou dormência súbita</strong> num lado do corpo, braço ou face?'},
+  {id:'rf4', q:'Teve <strong>traumatismo craniano recente</strong> (últimos 7 dias) antes das tonturas?'},
+  {id:'rf5', q:'Tem <strong>dor no peito</strong>, falta de ar intensa ou perda de consciência?'}
+];
 
-    var redFlags = [
-      {id:'rf1', q:'Sente, agora ou nas últimas horas, <strong>dor de cabeça súbita e muito intensa</strong> (a pior da sua vida)?'},
-      {id:'rf2', q:'Tem <strong>perda súbita de visão</strong>, visão dupla ou dificuldade a falar/compreender?'},
-      {id:'rf3', q:'Tem <strong>fraqueza ou dormência súbita</strong> num lado do corpo, braço ou face?'},
-      {id:'rf4', q:'Teve <strong>traumatismo craniano recente</strong> (últimos 7 dias) antes das tonturas?'},
-      {id:'rf5', q:'Tem <strong>dor no peito</strong>, falta de ar intensa ou perda de consciência?'}
-    ];
-    var perguntas = [
-      {id:'p1',q:'Há quanto tempo tem estes sintomas de tontura ou desequilíbrio?',e:'Duração orienta para agudo vs. crónico.',
-       o:[['Menos de 1 semana',6],['1 semana a 1 mês',9],['1 a 3 meses',11],['Mais de 3 meses',12]]},
-      {id:'p2',q:'Como descreveria melhor a sua sensação?',e:'Diferencia vertigem verdadeira de pré-síncope ou desequilíbrio.',
-       o:[['Sinto o ambiente a rodar à minha volta (vertigem)',16],['Sinto a cabeça leve, como se fosse desmaiar',7],['Sinto instabilidade ao andar, como se fosse cair',12],['Sensação de flutuação ou "cabeça cheia"',9]]},
-      {id:'p3',q:'Quanto tempo dura cada episódio?',e:'Padrão temporal é chave para distinguir VPPB, Ménière ou neurite.',
-       o:[['Segundos, menos de 1 minuto',12],['Minutos a horas',10],['Vários dias contínuos',8],['Constante, não pára',7]]},
-      {id:'p4',q:'O que desencadeia os episódios?',e:'Gatilhos posicionais sugerem origem vestibular periférica.',
-       o:[['Virar a cabeça, deitar ou levantar-me da cama',10],['Levantar-me depressa da cadeira',4],['Ambientes com muito estímulo visual (supermercado)',8],['Aparecem sem motivo, de repente',9]]},
-      {id:'p5',q:'Tem algum destes sintomas no ouvido?',e:'Sintomas auditivos sugerem envolvimento do ouvido interno.',
-       o:[['Perda de audição num dos ouvidos',8],['Zumbido ou apito no ouvido',6],['Sensação de ouvido "cheio" ou tapado',5],['Nenhum destes',1]]},
-      {id:'p6',q:'Durante os episódios tem náuseas ou vómitos?',e:'Náusea acentuada associa-se a crise vestibular aguda.',
-       o:[['Sim, intensos',8],['Sim, ligeiros',5],['Não',1]]},
-      {id:'p7',q:'No último ano, quantas quedas teve?',e:'Quedas são marcador de risco e elegibilidade para reabilitação.',
-       o:[['Nenhuma',1],['Uma queda',6],['Duas ou mais quedas',10]]},
-      {id:'p8',q:'Os sintomas limitam a sua vida diária?',e:'Proxy simplificado do impacto funcional (inspirado no DHI).',
-       o:[['Não afectam',1],['Evito algumas actividades (sair, conduzir)',6],['Tenho medo de sair de casa ou de cair',10]]},
-      {id:'p9',q:'Qual é a sua idade?',e:'A idade influencia o risco de perturbações vestibulares e quedas.',
-       o:[['Menos de 40 anos',1],['40 a 59 anos',3],['60 a 74 anos',5],['75 anos ou mais',6]]},
-      {id:'p10',q:'Toma medicação que possa causar tonturas (tensão, ansiedade, sono, diabetes)?',e:'Medicação é causa frequente e reversível de tontura no adulto mais velho.',
-       o:[['Não tomo nenhuma destas',1],['Tomo uma destas medicações',4],['Tomo duas ou mais destas medicações',8]]}
-    ];
+// Perguntas de triagem com pesos (total = 100)
+const perguntas = [
+  {id:'p1', peso:12,
+    q:'Há quanto tempo tem estes sintomas de tontura ou desequilíbrio?',
+    e:'Duração orienta para agudo vs. crónico.',
+    o:[['Menos de 1 semana',6],['1 semana a 1 mês',9],['1 a 3 meses',11],['Mais de 3 meses',12]]},
+  {id:'p2', peso:16,
+    q:'Como descreveria melhor a sua sensação?',
+    e:'Diferencia vertigem verdadeira de pré-síncope ou desequilíbrio.',
+    o:[['Sinto o ambiente a rodar à minha volta (vertigem)',16],['Sinto a cabeça leve, como se fosse desmaiar',7],['Sinto instabilidade ao andar, como se fosse cair',12],['Sensação de flutuação ou "cabeça cheia"',9]]},
+  {id:'p3', peso:12,
+    q:'Quanto tempo dura cada episódio?',
+    e:'Padrão temporal é chave para distinguir VPPB, Ménière ou neurite.',
+    o:[['Segundos, menos de 1 minuto',12],['Minutos a horas',10],['Vários dias contínuos',8],['Constante, não pára',7]]},
+  {id:'p4', peso:10,
+    q:'O que desencadeia os episódios?',
+    e:'Gatilhos posicionais sugerem origem vestibular periférica.',
+    o:[['Virar a cabeça, deitar ou levantar-me da cama',10],['Levantar-me depressa da cadeira',4],['Ambientes com muito estímulo visual (supermercado)',8],['Aparecem sem motivo, de repente',9]]},
+  {id:'p5', peso:8,
+    q:'Tem algum destes sintomas no ouvido?',
+    e:'Sintomas auditivos sugerem envolvimento do ouvido interno.',
+    o:[['Perda de audição num dos ouvidos',8],['Zumbido ou apito no ouvido',6],['Sensação de ouvido "cheio" ou tapado',5],['Nenhum destes',1]]},
+  {id:'p6', peso:8,
+    q:'Durante os episódios tem náuseas ou vómitos?',
+    e:'Náusea acentuada associa-se a crise vestibular aguda.',
+    o:[['Sim, intensos',8],['Sim, ligeiros',5],['Não',1]]},
+  {id:'p7', peso:10,
+    q:'No último ano, quantas quedas teve?',
+    e:'Quedas são marcador de risco e elegibilidade para reabilitação.',
+    o:[['Nenhuma',1],['Uma queda',6],['Duas ou mais quedas',10]]},
+  {id:'p8', peso:10,
+    q:'Os sintomas limitam a sua vida diária?',
+    e:'Proxy simplificado do impacto funcional (inspirado no DHI).',
+    o:[['Não afectam',1],['Evito algumas actividades (sair, conduzir)',6],['Tenho medo de sair de casa ou de cair',10]]},
+  {id:'p9', peso:6,
+    q:'Qual é a sua idade?',
+    e:'A idade influencia o risco de perturbações vestibulares e quedas.',
+    o:[['Menos de 40 anos',1],['40 a 59 anos',3],['60 a 74 anos',5],['75 anos ou mais',6]]},
+  {id:'p10', peso:8,
+    q:'Toma medicação que possa causar tonturas (tensão, ansiedade, sono, diabetes)?',
+    e:'Medicação é causa frequente e reversível de tontura no adulto mais velho.',
+    o:[['Não tomo nenhuma destas',1],['Tomo uma destas medicações',4],['Tomo duas ou mais destas medicações',8]]}
+];
 
-    var form = document.getElementById('qtov-form');
-    var html = '';
-    redFlags.forEach(function(rf){
-      html += '<div class="qtov-pergunta qtov-redflag"><h3>🚨 '+rf.q+'</h3><div class="qtov-opcoes">'+
-        '<label class="qtov-opcao"><input type="radio" name="'+rf.id+'" value="1">Sim</label>'+
-        '<label class="qtov-opcao"><input type="radio" name="'+rf.id+'" value="0">Não</label></div></div>';
-    });
-    perguntas.forEach(function(p){
-      var ops = p.o.map(function(op){return '<label class="qtov-opcao"><input type="radio" name="'+p.id+'" value="'+op[1]+'">'+op[0]+'</label>';}).join('');
-      html += '<div class="qtov-pergunta"><h3>'+p.q+'</h3><div class="qtov-explic">'+p.e+'</div><div class="qtov-opcoes">'+ops+'</div></div>';
-    });
-    form.innerHTML = html;
+const form = document.getElementById('form');
 
-    form.addEventListener('change', function(e){
-      if(e.target.type==='radio'){
-        var grupo = form.querySelectorAll('input[name="'+e.target.name+'"]');
-        grupo.forEach(function(r){r.closest('.qtov-opcao').classList.remove('qtov-checked');});
-        e.target.closest('.qtov-opcao').classList.add('qtov-checked');
-      }
-    });
-
-    document.getElementById('qtov-btnCalcular').addEventListener('click', function(){
-      var todas = redFlags.concat(perguntas);
-      for(var i=0;i<todas.length;i++){
-        if(!form.querySelector('input[name="'+todas[i].id+'"]:checked')){
-          alert('Por favor responda a todas as perguntas antes de continuar.');
-          form.querySelector('input[name="'+todas[i].id+'"]').closest('.qtov-pergunta').scrollIntoView({behavior:'smooth',block:'center'});
-          return;
-        }
-      }
-      var rf = false;
-      redFlags.forEach(function(r){if(form.querySelector('input[name="'+r.id+'"]:checked').value==='1') rf=true;});
-      var pontos = 0;
-      perguntas.forEach(function(p){pontos += parseInt(form.querySelector('input[name="'+p.id+'"]:checked').value,10);});
-      var score = rf ? 100 : pontos;
-      mostrarResultado(score, rf);
-    });
-
-    function mostrarResultado(score, rf){
-      var sem = document.getElementById('qtov-semaforo');
-      document.getElementById('qtov-pontos').textContent = score;
-      sem.className = 'qtov-semaforo';
-      var cor, ic, nv, txt;
-      if(rf){
-        cor='qtov-vermelho';ic='🚨';nv='Emergência';
-        txt = '<h3>Procure avaliação médica urgente</h3>'+
-          '<p>Assinalou sintomas que podem indicar uma situação grave e que requer observação imediata.</p>'+
-          '<ul><li><strong>Ligue 112</strong> ou dirija-se ao <strong>Serviço de Urgência</strong> mais próximo</li>'+
-          '<li>Em alternativa, ligue <strong>SNS 24 — 808 24 24 24</strong></li>'+
-          '<li><strong>Não conduza sozinho.</strong> Peça ajuda.</li></ul>';
-      } else if(score >= 80){
-        cor='qtov-vermelho';ic='🔴';nv='Aconselhamento Especializado';
-        txt = '<h3>Recomenda-se aconselhamento especializado</h3>'+
-          '<p>O padrão dos seus sintomas é compatível com síndrome vestibular e justifica avaliação clínica.</p>'+
-          '<ul><li>Marque consulta com o seu <strong>médico assistente</strong> nas próximas 1–2 semanas</li>'+
-          '<li>Peça referenciação a <strong>Medicina Física e de Reabilitação (Fisiatra)</strong></li>'+
-          '<li>Até à consulta: evite conduzir e actividades com risco de queda</li>'+
-          '<li>Registe os episódios (quando, duração, gatilhos)</li></ul>';
-      } else if(score >= 50){
-        cor='qtov-amarelo';ic='🟡';nv='Reabilitação Domiciliária';
-        txt = '<h3>Poderá beneficiar de reabilitação vestibular no domicílio</h3>'+
-          '<p>Os seus sintomas sugerem que poderá beneficiar de um programa de <strong>reabilitação vestibular domiciliária supervisionada</strong>, com apoio do projecto <strong>TeleRehab DSS</strong> e, brevemente, do assistente <strong>RehabAssist</strong> (em desenvolvimento).</p>'+
-          '<ul><li>Fale com o seu <strong>médico assistente</strong> para ser referenciado ao programa TeleRehab</li>'+
-          '<li>O programa <strong>TeleRehab DSS</strong> oferece reabilitação em casa com acompanhamento clínico remoto</li>'+
-          '<li>Em breve estará disponível o agente <strong>RehabAssist</strong> como apoio domiciliário complementar</li>'+
-          '<li>Na Madeira: <a href="mailto:info@digit-madeira.pt">info@digit-madeira.pt</a> · <a href="https://telerehab-project.eu" target="_blank" rel="noopener">telerehab-project.eu</a></li>'+
-          '<li><strong>Não inicie exercícios por iniciativa própria</strong> — o programa deve ser iniciado após avaliação clínica</li></ul>';
-      } else {
-        cor='qtov-verde';ic='🟢';nv='Sem Necessidade de Reabilitação';
-        txt = '<h3>Sem necessidade de reabilitação vestibular</h3>'+
-          '<p>Os seus sintomas actuais sugerem baixa probabilidade de síndrome vestibular. Ainda assim, <strong>as quedas por tontura são frequentes nos adultos mais velhos</strong> — siga estes cuidados preventivos:</p>'+
-          '<ul><li><strong>Levante-se devagar</strong> da cama ou da cadeira (sente-se 30 segundos antes de pôr-se em pé)</li>'+
-          '<li><strong>Hidrate-se</strong> ao longo do dia; a desidratação é causa frequente de tontura</li>'+
-          '<li><strong>Em casa:</strong> retire tapetes soltos, melhore a iluminação, instale barras de apoio na casa de banho</li>'+
-          '<li><strong>Calçado:</strong> use sapatos fechados com sola antiderrapante, mesmo em casa</li>'+
-          '<li><strong>Medicação:</strong> se toma comprimidos para a tensão, sono ou ansiedade, pergunte ao seu médico se podem causar tonturas</li>'+
-          '<li><strong>Actividade física regular:</strong> caminhar e exercícios de equilíbrio mantêm o sistema vestibular saudável</li>'+
-          '<li>Se surgirem novos sintomas, <strong>repita esta triagem</strong> ou contacte o seu médico</li></ul>';
-      }
-      sem.classList.add(cor);
-      document.getElementById('qtov-icone').textContent = ic;
-      document.getElementById('qtov-nivel').textContent = nv;
-      document.getElementById('qtov-orient').innerHTML = txt;
-      document.getElementById('qtov-quizz').style.display='none';
-      document.getElementById('qtov-resultado').classList.add('qtov-ativo');
-      document.getElementById('qtov-app').scrollIntoView({behavior:'smooth',block:'start'});
+function render(){
+  let html = '';
+  redFlags.forEach(rf=>{
+    html += `<div class="pergunta redflag"><h3>🚨 ${rf.q}</h3><div class="opcoes">
+      <label class="opcao"><input type="radio" name="${rf.id}" value="1">Sim</label>
+      <label class="opcao"><input type="radio" name="${rf.id}" value="0">Não</label></div></div>`;
+  });
+  perguntas.forEach(p=>{
+    let ops = p.o.map((op,i)=>`<label class="opcao"><input type="radio" name="${p.id}" value="${op[1]}">${op[0]}</label>`).join('');
+    html += `<div class="pergunta"><h3>${p.q}</h3><div class="explic">${p.e}</div><div class="opcoes">${ops}</div></div>`;
+  });
+  form.innerHTML = html;
+  form.addEventListener('change', e=>{
+    if(e.target.type==='radio'){
+      const grupo = form.querySelectorAll(`input[name="${e.target.name}"]`);
+      grupo.forEach(r=>r.closest('.opcao').classList.remove('checked'));
+      e.target.closest('.opcao').classList.add('checked');
     }
+  });
+}
+render();
 
-    document.getElementById('qtov-btnReset').addEventListener('click', function(){
-      form.reset();
-      form.querySelectorAll('.qtov-opcao.qtov-checked').forEach(function(o){o.classList.remove('qtov-checked');});
-      document.getElementById('qtov-resultado').classList.remove('qtov-ativo');
-      document.getElementById('qtov-quizz').style.display='block';
-      document.getElementById('qtov-app').scrollIntoView({behavior:'smooth',block:'start'});
-    });
+document.getElementById('btnCalcular').addEventListener('click', ()=>{
+  // valida respostas completas
+  const todas = [...redFlags, ...perguntas];
+  for(const p of todas){
+    if(!form.querySelector(`input[name="${p.id}"]:checked`)){
+      alert('Por favor responda a todas as perguntas antes de continuar.');
+      document.querySelector(`input[name="${p.id}"]`).closest('.pergunta').scrollIntoView({behavior:'smooth',block:'center'});
+      return;
+    }
   }
+  // red flag activa?
+  let rf = false;
+  redFlags.forEach(r=>{
+    if(form.querySelector(`input[name="${r.id}"]:checked`).value==='1') rf=true;
+  });
+  let pontos = 0, maxP = 0;
+  perguntas.forEach(p=>{
+    pontos += parseInt(form.querySelector(`input[name="${p.id}"]:checked`).value,10);
+    maxP += p.peso;
+  });
+  const score = rf ? 100 : Math.round((pontos/maxP)*100);
+  mostrarResultado(score, rf);
+});
 
-  // Init seguro para Squarespace (DOM pode não estar pronto)
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', qtovInit);
+function mostrarResultado(score, rf){
+  const sem = document.getElementById('semaforo');
+  const icone = document.getElementById('icone');
+  const nivel = document.getElementById('nivel');
+  const orient = document.getElementById('orient');
+  document.getElementById('pontos').textContent = score;
+  sem.className = 'semaforo';
+  let cor, ic, nv, txt;
+  if(rf){
+    cor='vermelho';ic='🚨';nv='Emergência';
+    txt = `<h3>Procure avaliação médica urgente</h3>
+    <p>Assinalou sintomas que podem indicar uma situação grave e que requer observação imediata.</p>
+    <ul><li><strong>Ligue 112</strong> ou dirija-se ao <strong>Serviço de Urgência</strong> mais próximo</li>
+    <li>Em alternativa, ligue <strong>SNS 24 — 808 24 24 24</strong></li>
+    <li><strong>Não conduza sozinho.</strong> Peça ajuda.</li></ul>`;
+  } else if(score >= 80){
+    cor='vermelho';ic='🔴';nv='Aconselhamento Especializado';
+    txt = `<h3>Recomenda-se aconselhamento especializado</h3>
+    <p>O padrão dos seus sintomas é compatível com síndrome vestibular e justifica avaliação clínica.</p>
+    <ul><li>Marque consulta com o seu <strong>médico assistente</strong> nas próximas 1–2 semanas</li>
+    <li>Peça referenciação a <strong>Medicina Física e de Reabilitação (Fisiatra)</strong></li>
+    <li>Até à consulta: evite conduzir e actividades com risco de queda</li>
+    <li>Registe os episódios (quando, duração, gatilhos)</li></ul>`;
+  } else if(score >= 50){
+    cor='amarelo';ic='🟡';nv='Reabilitação Domiciliária';
+    txt = `<h3>Poderá beneficiar de reabilitação vestibular no domicílio</h3>
+    <p>Os seus sintomas sugerem que poderá beneficiar de um programa de <strong>reabilitação vestibular domiciliária supervisionada</strong>, com apoio do projecto <strong>TeleRehab DSS</strong> e, brevemente, do assistente <strong>RehabAssist</strong> (em desenvolvimento).</p>
+    <ul><li>Fale com o seu <strong>médico assistente</strong> para ser referenciado ao programa TeleRehab</li>
+    <li>O programa <strong>TeleRehab DSS</strong> oferece reabilitação em casa com acompanhamento clínico remoto</li>
+    <li>Em breve estará disponível o agente <strong>RehabAssist</strong> como apoio domiciliário complementar</li>
+    <li>Na Madeira: <a href="mailto:info@digit-madeira.pt">info@digit-madeira.pt</a> · <a href="https://telerehab-project.eu" target="_blank" rel="noopener">telerehab-project.eu</a></li>
+    <li><strong>Não inicie exercícios por iniciativa própria</strong> — o programa deve ser iniciado após avaliação clínica</li></ul>`;
   } else {
-    qtovInit();
+    cor='verde';ic='🟢';nv='Sem Necessidade de Reabilitação';
+    txt = `<h3>Sem necessidade de reabilitação vestibular</h3>
+    <p>Os seus sintomas actuais sugerem baixa probabilidade de síndrome vestibular. Ainda assim, <strong>as quedas por tontura são frequentes nos adultos mais velhos</strong> — siga estes cuidados preventivos:</p>
+    <ul><li><strong>Levante-se devagar</strong> da cama ou da cadeira (sente-se 30 segundos antes de pôr-se em pé)</li>
+    <li><strong>Hidrate-se</strong> ao longo do dia; a desidratação é causa frequente de tontura</li>
+    <li><strong>Em casa:</strong> retire tapetes soltos, melhore a iluminação dos corredores, instale barras de apoio na casa de banho</li>
+    <li><strong>Calçado:</strong> use sapatos fechados com sola antiderrapante, mesmo em casa</li>
+    <li><strong>Medicação:</strong> se toma comprimidos para a tensão, sono ou ansiedade, pergunte ao seu médico se podem causar tonturas</li>
+    <li><strong>Actividade física regular:</strong> caminhar e exercícios de equilíbrio mantêm o sistema vestibular saudável</li>
+    <li>Se surgirem novos sintomas ou agravamento, <strong>repita esta triagem</strong> ou contacte o seu médico</li></ul>`;
   }
-})();
+  sem.classList.add(cor);
+  icone.textContent = ic;
+  nivel.textContent = nv;
+  orient.innerHTML = txt;
+  document.getElementById('quizz').style.display='none';
+  document.getElementById('resultado').classList.add('ativo');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+document.getElementById('btnReset').addEventListener('click', ()=>{
+  form.reset();
+  form.querySelectorAll('.opcao.checked').forEach(o=>o.classList.remove('checked'));
+  document.getElementById('resultado').classList.remove('ativo');
+  document.getElementById('quizz').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+});
 </script>
+</body>
+</html>
